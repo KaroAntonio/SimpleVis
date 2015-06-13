@@ -1,4 +1,4 @@
-var mic, fft;
+var mic, fft, song;
 
 var w = window,
     d = document,
@@ -9,14 +9,19 @@ var w = window,
 
 console.log (w.innerWidth + " "+ e.clientWidth);
 
+function preload() {
+    song = loadSound('assets/tundra.mp3');
+    
+}
+
 function setup() {
     createCanvas(wwidth,wheight);
     noFill();
     colorMode(HSB, 255, 255, 255);  
-    mic = new p5.AudioIn();
-    mic.start();
+    //mic = new p5.AudioIn();
+    //mic.start();
     fft = new p5.FFT();
-    fft.setInput(mic);
+    fft.setInput(song);
     
 }
 
@@ -52,16 +57,22 @@ function draw() {
 
 function keyPressed() {
     if (keyCode == TAB) {
-        /*
-        launchIntoFullscreen(e);
-        wwidth = w.innerWidth || e.clientWidth;
-        wheight = w.innerHeight|| e.clientHeight;
-        setup();
-        */
         full();
-        setTimeout(full, 1000);
+    } else if (keyCode == ENTER) {
+        if ( song.isPlaying() ) { 
+            // .isPlaying() returns a boolean
+            console.log("Pause")
+            paused = true;
+            song.pause();
+        } else {
+            
+            paused = false;
+            console.log("Play")
+            song.play();
+        }
     }
 }
+
 
 function full() {
     launchIntoFullscreen(e);
