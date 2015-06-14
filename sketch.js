@@ -7,11 +7,8 @@ var w = window,
     wwidth = w.innerWidth || e.clientWidth,
     wheight = w.innerHeight|| e.clientHeight;
 
-console.log (w.innerWidth + " "+ e.clientWidth);
-
 function preload() {
     song = loadSound('assets/tundra.mp3');
-    
 }
 
 function setup() {
@@ -22,11 +19,11 @@ function setup() {
     //mic.start();
     fft = new p5.FFT();
     fft.setInput(song);
+    //song.play();
     
 }
 
 function draw() {
-    
     var spectrum = fft.analyze();
     //fill(color(204, 255, spectrum[0]));
     //background(color((spectrum[0] + 140)%255, 255, 255));
@@ -36,7 +33,7 @@ function draw() {
         beginShape();
         for (i = 0; i<(spectrum.length/30); i++) {
            //stroke(color(spectrum[i + (j * 30)]%255, 200, 255));
-            stroke(color(spectrum[i + (j * 30)]%255, 100, 255));
+            stroke(color(spectrum[i + (j * 30)]%255, 0, 255));
            //vertex(i * width/(spectrum.length/3), map(spectrum[i], 0, height, height, 0) );
            vertex(((i) * width/(spectrum.length/10)) + width/(3),
                  (height - height/10 * (j + 1)) - spectrum[i + (j * 30)]);
@@ -53,6 +50,17 @@ function draw() {
                 spectrum[i]*2)
     }
 */
+}
+
+function mousePressed() {
+    if ( song.isPlaying() ) { 
+        // .isPlaying() returns a boolean
+        console.log("Pause")
+        song.pause();
+    } else {
+        console.log("Play")
+        song.play();
+    }
 }
 
 function keyPressed() {
