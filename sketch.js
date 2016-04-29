@@ -8,7 +8,7 @@ var w = window,
     wheight = w.innerHeight|| e.clientHeight;
 
 function preload() {
-    song = loadSound('assets/tundra.mp3');
+    song = loadSound('assets/tundra.mp3')
 }
 //Start
 function setup() {
